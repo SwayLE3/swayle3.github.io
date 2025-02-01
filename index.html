@@ -52,7 +52,7 @@
             const data = await response.json();
             const puuid = data.data.puuid;
             const theme = document.getElementById("theme1").value;
-            window.location.href = `${theme}.html?puuid=${puuid}`;
+            window.location.href = `swayle3.github.io/${theme}.html?puuid=${puuid}`;
         } catch (error) {
             console.error("Error :", error);
             alert("PUIID not found !");
