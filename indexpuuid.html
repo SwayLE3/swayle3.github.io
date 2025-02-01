@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valorant API Widget</title>
+</head>
+<body style="background-color:rgb(58, 58, 58); color: white;">
+    <h1>Valorant API Stats</h1>
+    <label for="puuid">Enter RiotID:</label>
+    <input type="text" id="userInput" placeholder="Username#tagline">
+    
+    <button type="button" onclick="splitInput()">Confirm</button>
+    <label for="region">Select Theme:</label>
+    <select id="theme1">
+        <option value="Classic">Classic Blue</option>
+        <option value="Blue">Blue</option>
+        <option value="ap">Asia-Pacific</option>
+        <option value="kr">Korea</option>
+    </select>
+    <p>Username: <span id="username"></span></p>
+    <p>Tagline: <span id="tagline"></span></p>
+
+<script>
+    function splitInput() {
+        const input = document.getElementById("userInput").value.trim();
+        const parts = input.split("#");
+
+        if (parts.length === 2) { 
+            const username = parts[0];
+            const tagline = parts[1];
+
+            document.getElementById("username").textContent = username;
+            document.getElementById("tagline").textContent = tagline;
+
+            fetchPuuid(username, tagline);
+        } else {
+            alert("Invalid format ! Use 'Username#tagline'");
+        }
+    }
+
+    async function fetchPuuid(username, tagline) {
+        const apiKey = "GET YOUR API KEY FROM https://api.henrikdev.xyz/";
+        const url = `https://api.henrikdev.xyz/valorant/v1/account/${username}/${tagline}?api_key=${apiKey}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error("Error while fetching data !");
+            }
+
+            const data = await response.json();
+            const puuid = data.data.puuid;
+            const theme = document.getElementById("theme1").value;
+            window.location.href = `${theme}.html?puuid=${puuid}`;
+        } catch (error) {
+            console.error("Error :", error);
+            alert("PUIID not found !");
+        }
+    }
+</script>
+</body>
+</html>
