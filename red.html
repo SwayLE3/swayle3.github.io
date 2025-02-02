@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valorant API Widget</title>
+</head>
+<body>
+    <div>
+        <canvas id="myChart"></canvas>
+        <span id="elo"></span>
+    </div>
+    <style>
+        #myChart {
+            background-color: #1D1616;
+        }
+        #html {
+            background-color: #023047;;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        
+        function getPuuidFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('puuid');
+        }
+
+        const puuid = getPuuidFromURL();
+        if (!puuid) {
+            alert("PUUID manquant !");
+        } else {
+            const APIurl = `https://api.henrikdev.xyz/valorant/v1/by-puuid/lifetime/mmr-history/eu/${puuid}?api_key=HDEV-91c8d221-bc22-4f1d-8b11-fdfcc70a31dd`;
+
+            async function getELOarray(APIurl) {
+                const response = await fetch(APIurl);
+                const data = await response.json();
+                const eloList = data.data.map(item => item.elo).reverse();
+                const labels = data.data.map((item, index) => `Match ${index + 1}`);
+
+                const ctx = document.getElementById('myChart');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Elo',
+                            data: eloList,
+                            borderWidth: 3,
+                            borderColor: '#8E1616',
+                            backgroundColor: '#EEEEEE',
+                            pointBorderColor: '#D84040',
+                            pointBackgroundColor: '#000000',
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: { beginAtZero: true, ticks:{color: '#FFFFFF', font: { size: 20 }}, grid: { color: '#EEEEEE' } },
+                            x: { ticks: { autoSkip: false, color: '#FFFFFF', font: { size: 20 }}, grid: { color: '#EEEEEE' } },
+                        }
+                    },
+                    plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#FF0000',
+                        font: { size: 14 }
+                    }
+                }
+            }
+                });
+            }
+            getELOarray(APIurl);
+        }
+    </script>
+</body>
+</html>
