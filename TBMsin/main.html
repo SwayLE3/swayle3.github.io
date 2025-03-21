@@ -7,12 +7,13 @@
 </head>
 <body>
     <header>
-        <h1><span id="numeroNOM"></span></h1>
+        <h1><span id="numeroNOM" aria-live="polite"></span></h1>
     </header>
     
-    <h2><section id="bus-info">
-        <p>Le prochain bus passe à : <span id="dateBUS"></span></p>
-    </section></h2>
+    <section id="bus-info" aria-labelledby="prochain-bus">
+        <h2 id="prochain-bus">Prochain Bus</h2>
+        <p>Le prochain bus passe à : <span id="dateBUS" aria-live="polite"></span></p>
+    </section>
 
     <script src="https://swayle3.github.io/TBMsin/javascript.js"></script>
 </body>
