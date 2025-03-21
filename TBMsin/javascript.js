@@ -25,7 +25,7 @@ async function findStopPointRef(apiUrl, stopPointRef) {
       const lineRef = stopVisit["MonitoredVehicleJourney"]["LineRef"]["value"];
       const Destination = stopVisit["MonitoredVehicleJourney"]["DestinationName"][0]["value"];
       console.log(Destination);
-      document.getElementById("numeroNOM").innerHTML = Destination;
+      document.getElementById("numeroNOM").innerHTML = `prochain bus ; ${Destination}`;
     }
     const numeroligne2 = data.Siri.ServiceDelivery.StopMonitoringDelivery[0].MonitoredStopVisit[0];
 
