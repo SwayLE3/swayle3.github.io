@@ -1,7 +1,10 @@
+@import url('https://fonts.cdnfonts.com/css/open-dyslexic');
+  
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Open-Dyslexic', sans-serif;
     text-align: center;
-    background-color: rgba(132, 132, 132, 0.566);
+    background-color: rgb(255, 255, 255);
     margin: 0;
     padding: 0;
     height: 640px;
