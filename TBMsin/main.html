@@ -3,28 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Informations sur le prochain bus à venir">
-    <title>Prochain Bus</title>
+    <title>Prochain Bus 35 - Gare Saint-Jean</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+    
     <header>
-        <h1>
-            <span id="numeroNOM" aria-live="polite" role="status"></span>
-        </h1>
+        <h1>Prochain Bus 35 en destination de Gare Saint-Jean</h1>
     </header>
     
-    <section id="bus-info" aria-labelledby="prochain-bus">
-        <h2 id="prochain-bus">Prochain Bus</h2>
-        <p>Le prochain bus passe à : 
-            <span id="dateBUS" aria-live="polite" role="status"></span>
-        </p>
-        <!-- Affichage du temps restant en minutes -->
-        <p id="temps-restant" aria-live="polite" role="status">
-            Le temps restant avant le prochain bus est de <span id="tempsMinutes"></span> minutes.
-        </p>
+    <section id="bus-info">
+        <p>Le prochain bus 35 passe à : <span id="dateBUS"></span> </p>
+    <p>dans :<span id="remainingtime">time remaining</span></p>
     </section>
 
-    <!-- Scripts -->
-    <script src="https://swayle3.github.io/TBMsin/javascript.js"></script>
+    <footer>
+        <p>Powered by TBM API</p>
+    </footer>
+    <div id="contenuALire">
+        Ceci est un texte de test pour la synthèse vocale.
+      </div>
+      
+      <button id="boutonLecture">Test</button>
+      <script src="https://code.responsivevoice.org/responsivevoice.js?key=apikey"></script>
+<script>
+  document.getElementById('boutonLecture').addEventListener('click', function() {
+    const texte = document.getElementById('contenuALire').textContent;
+    responsiveVoice.speak(texte, "French Female");
+  });
+</script>
+
+    <script src="/javascript.js"></script>
 </body>
 </html>
