@@ -1,99 +1,95 @@
-// URL de l'API de l'arrêt spécifique
-const apiUrl = "https://bdx.mecatran.com/utw/ws/siri/2.0/bordeaux/stop-monitoring.json?AccountKey=opendata-bordeaux-metropole-flux-gtfs-rt&MonitoringRef=bordeaux:StopPoint:BP:1633:LOC";
+// URL de l'API  
+const apiUrl = "https://bdx.mecatran.com/utw/ws/siri/2.0/bordeaux/estimated-timetable.json?AccountKey=opendata-bordeaux-metropole-flux-gtfs-rt&LineRef=bordeaux:Line:05:LOC&DirectionRef=0";
 
 // La référence du point d'arrêt que vous recherchez  
-const stopPointRefToFind = "bordeaux:Line:08:LOC";
+const stopPointRefToFind = "bordeaux:StopPoint:BP:7009:LOC";
 
-// Fonction pour récupérer l'heure de départ la plus proche  
+// Ajouter un événement au bouton
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('boutonLecture').addEventListener('click', lireTexte);
+});
+
+// Fonction pour effectuer la requête à l'API et rechercher le point d'arrêt  
 async function findStopPointRef(apiUrl, stopPointRef) {
   try {
     const response = await fetch(apiUrl);
-
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
-    }
-
     const data = await response.json();
-
-    // DEBUG: Affichage des données reçues pour analyse
-    //console.log("Données reçues de l'API :", data);
-
-    // Accède aux éléments pertinents : StopMonitoringDelivery -> MonitoredStopVisit
-    const monitoredStopVisits = data?.Siri?.ServiceDelivery?.StopMonitoringDelivery?.[0]?.MonitoredStopVisit;
-    //const numeroligne = monitoredStopVisits.monitoredVehicleJourney.DirectionName[0].value;
-    for (stopVisit of monitoredStopVisits) {
-      const lineRef = stopVisit["MonitoredVehicleJourney"]["LineRef"]["value"];
-      const Destination = stopVisit["MonitoredVehicleJourney"]["DestinationName"][0]["value"];
-      console.log(Destination);
-      document.getElementById("numeroNOM").innerHTML = `prochain bus ; ${Destination}`;
-    }
-    const numeroligne2 = data.Siri.ServiceDelivery.StopMonitoringDelivery[0].MonitoredStopVisit[0];
-
-
-    if (!Array.isArray(monitoredStopVisits)) {
-      console.error("Les données reçues ne contiennent pas 'MonitoredStopVisit' sous forme de tableau.");
-      return null;
-    }
-
     let closestCall = null;
     let closestTimeDiff = Infinity;
+    const journeys = data.Siri.ServiceDelivery.EstimatedTimetableDelivery;
 
-    // Parcours chaque visite surveillée
-    for (const visit of monitoredStopVisits) {
-      const monitoredVehicleJourney = visit.MonitoredVehicleJourney;
+    for (const journey of journeys) {
+      const estimatedJourneys = journey.EstimatedJourneyVersionFrame;
 
-      // Vérifie si le véhicule correspond à la ligne recherchée
-      if (monitoredVehicleJourney?.LineRef?.value === stopPointRef) {
-        const monitoredCall = monitoredVehicleJourney?.MonitoredCall;
+      for (const journeyFrame of estimatedJourneys) {
+        const estimatedVehicleJourneys = journeyFrame.EstimatedVehicleJourney;
 
-        // Si l'heure de départ est présente
-        if (monitoredCall?.ExpectedDepartureTime) {
-          const departureTime = new Date(monitoredCall.ExpectedDepartureTime);
+        for (const estimatedJourney of estimatedVehicleJourneys) {
+          const estimatedCalls = estimatedJourney.EstimatedCalls.EstimatedCall;
 
-          if (!isNaN(departureTime.getTime())) {
-            const currentTime = new Date();
-            const timeDiff = Math.abs(departureTime - currentTime);
-
-            // Si l'heure de départ est plus proche que la précédente
-            if (timeDiff < closestTimeDiff) {
-              closestTimeDiff = timeDiff;
-              closestCall = monitoredCall;
+          for (const call of estimatedCalls) {
+            for (const call of estimatedCalls) {
+              // Vérifie si le StopPointRef correspond et si ExpectedDepartureTime est valide
+              if (call.StopPointRef.value === stopPointRef && call.ExpectedDepartureTime) {
+                  console.log(call);
+                  try {
+                    const date = new Date(call.ExpectedDepartureTime);
+                    // Vérifie si la date est valide
+                    if (!isNaN(date.getTime())) {
+                      const currentTime = new Date();
+                      const timeDiff = Math.abs(date - currentTime); // Différence absolue en millisecondes
+                      
+                      // Si cette différence est plus petite que la précédente, on met à jour la "closestCall"
+                      if (timeDiff < closestTimeDiff) {
+                        closestTimeDiff = timeDiff;
+                        closestCall = call;
+                      }
+                      
+                      const closestDate = new Date(closestCall.ExpectedDepartureTime);
+                      
+                      // Format time with leading zeros
+                      const hours = closestDate.getHours();
+                      const minutes = closestDate.getMinutes().toString().padStart(2, '0');
+                      
+                      // Calculate remaining time in minutes (using full millisecond difference)
+                      const remainingMs = closestDate - currentTime;
+                      const remainingMinutes = Math.floor(remainingMs / 60000);
+                      
+                      document.getElementById("dateBUS").innerHTML = `${hours}:${minutes}`;
+                      document.getElementById("remainingtime").innerHTML = ` ${remainingMinutes} minutes`;
+                      
+                      console.log("Le départ le plus proche est à", hours, ":", minutes);
+                    }
+                    else {
+                      console.log("ExpectedDepartureTime invalide");
+                    }
+                  
+                  } catch (e) {
+                      console.error("Erreur lors du traitement de la date:", e);
+                    }
+                  }
+                }
+              }
             }
           }
         }
-      }
-    }
 
-    // Mise à jour de l'affichage si un bus est trouvé
-    if (closestCall) {
-      const closestDate = new Date(closestCall.ExpectedDepartureTime);
-      const hours = closestDate.getHours().toString().padStart(2, "0");
-      const minutes = closestDate.getMinutes().toString().padStart(2, "0");
-
-      document.getElementById("dateBUS").innerHTML = `${hours}:${minutes}`;
-      console.log(`Le départ le plus proche est à ${hours}:${minutes}`);
-    } else {
-      console.log("Aucun départ trouvé pour cet arrêt.");
-    }
-
-    return closestCall; // Retourne le résultat trouvé (ou null si rien)
+    return null; // Retourne null si non trouvé  
   } catch (error) {
     console.error("Erreur lors de la récupération des données :", error);
   }
-
-  return null;
 }
 
-// Exécution après 10 secondes
 setTimeout(() => {
-  findStopPointRef(apiUrl, stopPointRefToFind);
+  findStopPointRef(apiUrl, stopPointRefToFind)
 }, 10000);
 
-// Appel immédiat
-findStopPointRef(apiUrl, stopPointRefToFind).then((result) => {
-  if (result) {
-    console.log("Point d'arrêt trouvé :", result);
-  } else {
-    console.log("Point d'arrêt non trouvé !");
-  }
-});
+// Appel de la fonction et affichage des résultats  
+findStopPointRef(apiUrl, stopPointRefToFind)
+  .then(result => {
+    if (result) {
+      console.log("Point d'arrêt trouvé :", result);
+    } else {
+      console.log("Point d'arrêt non trouvé !");
+    }
+  });
