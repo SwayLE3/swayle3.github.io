@@ -69,6 +69,7 @@ footer {
 <script>
     const texte = document.getElementById('contenuALire').textContent;
     responsiveVoice.speak(texte, "French Male");
+    setTimeout(responsiveVoice.speak(texte, "French Male"),1500);
   document.getElementById('boutonLecture').addEventListener('click', function() {
     responsiveVoice.speak(texte, "French Male");
   });
