@@ -4,11 +4,6 @@ const apiUrl = "https://bdx.mecatran.com/utw/ws/siri/2.0/bordeaux/estimated-time
 // La référence du point d'arrêt que vous recherchez  
 const stopPointRefToFind = "bordeaux:StopPoint:BP:7009:LOC";
 
-// Ajouter un événement au bouton
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('boutonLecture').addEventListener('click', lireTexte);
-});
-
 // Fonction pour effectuer la requête à l'API et rechercher le point d'arrêt  
 async function findStopPointRef(apiUrl, stopPointRef) {
   try {
