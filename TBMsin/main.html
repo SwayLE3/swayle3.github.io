@@ -68,11 +68,11 @@ footer {
       <script src="https://code.responsivevoice.org/responsivevoice.js?key=pFc8ANXY"></script>
 <script>
     const texte = document.getElementById('contenuALire').textContent;
-    responsiveVoice.speak(texte, "French Male");
-    setTimeout(responsiveVoice.speak(texte, "French Male"),1500);
   document.getElementById('boutonLecture').addEventListener('click', function() {
     responsiveVoice.speak(texte, "French Male");
   });
+    const button = document.getElementById('boutonLecture');
+    button.click();
 </script>
 <script src="https://swayle3.github.io/TBMsin/javascript.js"></script>
 </body>
