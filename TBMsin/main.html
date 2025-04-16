@@ -71,8 +71,23 @@ footer {
   document.getElementById('boutonLecture').addEventListener('click', function() {
     responsiveVoice.speak(texte, "French Male");
   });
-    const button = document.getElementById('boutonLecture');
-    button.click();
+    function simulateClick(element) {
+    // Create a new MouseEvent with the type 'click'
+    const event = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        view: window
+    });
+
+    // Dispatch the event on the element
+    element.dispatchEvent(event);
+}
+
+// Get the button element
+const button = document.getElementById('boutonLecture');
+
+// Simulate a click on the button
+simulateClick(button);
 </script>
 <script src="https://swayle3.github.io/TBMsin/javascript.js"></script>
 </body>
