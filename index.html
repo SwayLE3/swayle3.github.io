@@ -32,6 +32,7 @@
       </div>
     <button class="button" type="button" onclick="splitInput()">Elo graph</button>
     <button class="button" type="button" onclick="splitInput2()">Dashboard</button>
+    <button class="button" type="button" onclick="splitInputDay()">Elo graph Day</button>
     <button onclick="location.href='tutorial.html'" type="button">Tutorial</button>
     <label id="label" for="region">Select Theme:</label>
     <select id="theme1">
@@ -191,6 +192,23 @@
         }
     }
 
+    function splitInputDay() {
+        const input = document.getElementById("userInput").value.trim();
+        const parts = input.split("#");
+
+        if (parts.length === 2) { 
+            const username = parts[0];
+            const tagline = parts[1];
+
+            document.getElementById("username").textContent = username;
+            document.getElementById("tagline").textContent = tagline;
+
+            fetchPuuidDay(username, tagline);
+        } else {
+            alert("Invalid format ! Use 'Username#tagline'");
+        }
+    }
+
     async function fetchPuuid2(username, tagline) {
         const apiKey = "HDEV-91c8d221-bc22-4f1d-8b11-fdfcc70a31dd";
         const url = `https://api.henrikdev.xyz/valorant/v1/account/${username}/${tagline}?api_key=${apiKey}`;
@@ -229,6 +247,30 @@
             const github = "https://swayle3.github.io/";
             function redirect() {
                 window.location.href = `${theme}.html?puuid=${puuid}`;
+                }
+            redirect();
+        } catch (error) {
+            console.error("Error :", error);
+            alert("PUIID not found !");
+        }
+    }
+
+    async function fetchPuuidDay(username, tagline) {
+        const apiKey = "HDEV-91c8d221-bc22-4f1d-8b11-fdfcc70a31dd";
+        const url = `https://api.henrikdev.xyz/valorant/v1/account/${username}/${tagline}?api_key=${apiKey}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error("Error while fetching data !");
+            }
+
+            const data = await response.json();
+            const puuid = data.data.puuid;
+            const theme = document.getElementById("theme1").value;
+            const github = "https://swayle3.github.io/";
+            function redirect() {
+                window.location.href = `classicDay.html?puuid=${puuid}`;
                 }
             redirect();
         } catch (error) {
