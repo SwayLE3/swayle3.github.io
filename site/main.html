@@ -201,7 +201,6 @@
         'index.html': '// SCRIPT.JS - Code principal du portfolio\n\n// Configuration globale\nconst CONFIG = {\n  theme: \'retro-futuristic\',\n  animations: true,\n  soundEffects: false\n};\n\n// Gestionnaire des fenêtres\nclass WindowManager {\n  constructor() {\n    this.windows = [];\n    this.activeWindow = null;\n  }\n\n  createWindow(title, content) {\n    const window = {\n      id: Date.now(),\n      title: title,\n      content: content,\n      element: null\n    };\n    \n    this.windows.push(window);\n    this.renderWindow(window);\n    return window;\n  }\n\n  renderWindow(window) {\n    console.log(\'Fenêtre créée:\', window.title);\n  }\n}\n\n// Initialisation\ndocument.addEventListener(\'DOMContentLoaded\', () => {\n  console.log(\'Portfolio SwayLE3 chargé\');\n});'
       };
 
-      // Positions prédéfinies pour éviter le chevauchement
       const windowPositions = [
         { left: '400px', top: '100px' },
         { left: '500px', top: '50px' },
@@ -221,7 +220,6 @@
         window.className = 'file-window';
         window.style.display = 'block';
 
-        // Position et taille spéciale pour script.js
         if (filename === 'script.js') {
           window.style.left = windowAboutme.left;
           window.style.top = windowAboutme.top;
@@ -229,7 +227,6 @@
           window.style.height = '800px';
           window.style.padding= '0px 0px 0px 0px' ;
         } else {
-          // Utiliser une position prédéfinie cyclique
           const position = windowPositions[currentPositionIndex % windowPositions.length];
           window.style.left = position.left;
           window.style.top = position.top;
@@ -242,7 +239,6 @@
 
         document.body.appendChild(window);
 
-        // Supprimer le padding interne pour script.js
         if (filename === 'script.js') {
           const contentDiv = window.querySelector('.file-window-content');
           if (contentDiv) contentDiv.style.padding = '0';
