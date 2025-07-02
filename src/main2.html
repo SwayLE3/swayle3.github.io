@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style2.css">
+  <title>SwayLE3</title>
+  <link id="favicon" rel="icon" href="normalIcon.ico" />
+</head>
+<body>
+    <div class="container">
+    <div class="container_terminal"></div>
+    <div class="terminal_toolbar">
+        <div class="butt">
+            <button class="btn btn-color"></button>
+            <button class="btn"></button>
+            <button class="btn"></button>
+        </div>
+        <p class="user">SwayLE3@admin: ~</p>
+    </div>
+    <div class="terminal_body">
+        <div class="terminal_promt">
+            <span class="terminal_user">SwayLE3@admin:</span>
+            <span class="terminal_location">~</span>
+            <span class="terminal_bling">$</span>
+            <span class="terminal_bling">cd projects</span>
+        </div>
+
+        <div class="terminal_promt">
+            <span class="terminal_user">SwayLE3@admin:</span>
+            <span class="terminal_location">~/Projects</span>
+            <span class="terminal_bling">$</span>
+            <span class="terminal_bling">ls</span>
+        </div>
+
+        <div class="terminal_promtcd">
+            <span class="terminal_promtcd"><a href="https://github.com/SwayLE3/TBM-API-interface" target="_blank">Tbm.json</a></span>
+            <span class="terminal_promtcd"><a href="https://github.com/SwayLE3/instagram-chat-chart" target="_blank">IgChart.py</a></span>
+            <span class="terminal_promtcd"><a href="https://swayle3.github.io" target="_blank">Valorant Dashboard</a></span>
+        </div>
+
+        <div class="terminal_promt">
+            <span class="terminal_user">SwayLE3@admin:</span>
+            <span class="terminal_location">~/Projects</span>
+            <span class="terminal_bling">$</span>
+            <span class="terminal_bling">cd</span>
+        </div>
+
+        <div class="terminal_promt">
+            <span class="terminal_user">SwayLE3@admin:</span>
+            <span class="terminal_location">~</span>
+            <span class="terminal_bling">$</span>
+            <span class="terminal_bling">cd technologies</span>
+        </div>
+        <div class="terminal_promt">
+            <span class="terminal_user">SwayLE3@admin:</span>
+            <span class="terminal_location">~/Technologies</span>
+            <span class="terminal_bling">$</span>
+            <span class="terminal_bling">ls</span>
+        </div>
+        <div class="terminal_promtcd">
+            <span class="terminal_promtcd">HTML</span>
+            <span class="terminal_promtcd">Python</span>
+            <span class="terminal_promtcd">C#</span>
+            <span class="terminal_promtcd">Photoshop</span>
+            <span class="terminal_promtcd">CSS</span>
+            <span class="terminal_promtcd">Arduino</span>
+            <span class="terminal_promtcd">Raspberry Pi</span>
+            <span class="terminal_promtcd">Blender</span>
+            <span class="terminal_promtcd">Visual Studio</span>
+            <span class="terminal_promtcd">Visual Studio Code</span>
+        </div>
+        <div class="terminal_promt">
+            <span class="terminal_user">SwayLE3@admin:</span>
+            <span class="terminal_location">~/Technologies</span>
+            <span class="terminal_bling">$</span>
+            <span class="terminal_bling">cd</span>
+        </div>
+        <div class="terminal_promt">
+            <span class="terminal_user">SwayLE3@admin:</span>
+            <span class="terminal_location">~</span>
+            <span class="terminal_bling">$</span>
+            <span class="terminal_bling">fastfetch</span>
+        </div>
+
+        
+        <div class="terminal_fastfetch_container">
+          <div>
+            <img src="avatar.png" alt="avatar" width="161" height="161">
+          </div>
+          <div class="terminal_fastfetch_infos">
+            <div>
+              <span class="terminal_fastfetch">User :</span>
+              <span class="terminal_bling">SwayLE3@admin</span>
+            </div>
+            <div>
+              <span class="terminal_fastfetch">Age :</span>
+              <span class="terminal_bling">18</span>
+            </div>
+            <div>
+              <span class="terminal_fastfetch">Location :</span>
+              <span class="terminal_bling">South France</span>
+            </div>
+            <div>
+              <span class="terminal_fastfetch">Hobbies :</span>
+              <span class="terminal_bling">Programming, 3d conception, Motorcycle mechanics</span>
+            </div>
+            <div>
+              <span class="terminal_fastfetch">contact :</span>
+              <span class="terminal_bling"><a href="https://www.discordapp.com/users/898447783223250984" target="_blank">Discord</a> <a href="https://github.com/SwayLE3" target="_blank">Github</a></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="terminal_promt">
+            <span class="terminal_user">SwayLE3@admin:</span>
+            <span class="terminal_location">~</span>
+            <span class="terminal_bling">$</span>
+            <span class="terminal_cursor"></span>
+        </div>
+    </div>
+</div>
+<script>
+    const favicon = document.getElementById('favicon');
+    const normalIcon = 'normalIcon.ico';
+    const hiddenIcon = 'hiddenIcon.ico';
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        favicon.href = hiddenIcon;
+      } else {
+        favicon.href = normalIcon;
+      }
+    });
+</script>
+</body>
+</html>
