@@ -191,7 +191,6 @@ a:active {
   }
 }
 
-/* Ajout pour le responsive */
 @media (max-width: 600px) {
   .container {
     width: 95vw;
