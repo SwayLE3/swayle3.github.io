@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valorant API Widget</title>
+    <style>
+        canvas {
+            background-color: transparent !important;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <canvas id="myChart" width="480" height="320"></canvas>
+        <span id="elo"></span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function getPuuidFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('puuid');
+        }
+
+        const puuid = getPuuidFromURL();
+        if (!puuid) {
+            alert("PUUID manquant !");
+        } else {
+            const APIurl = `https://api.henrikdev.xyz/valorant/v1/by-puuid/lifetime/mmr-history/eu/${puuid}?api_key=HDEV-91c8d221-bc22-4f1d-8b11-fdfcc70a31dd`;
+
+            async function getELOarray(APIurl) {
+                try {
+                    const response = await fetch(APIurl);
+                    if (!response.ok) throw new Error("Erreur lors de la récupération des données");
+                    const data = await response.json();
+                    const eloPerDate = {};
+
+                    data.data.forEach(item => {
+                        const date = new Date(item.date);
+                        const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+                        
+                        if (!eloPerDate[formattedDate] || item.elo > eloPerDate[formattedDate]) {
+                            eloPerDate[formattedDate] = item.elo;
+                        }
+                    });
+
+                    const sortedDates = Object.keys(eloPerDate).sort();
+                    const labels = sortedDates;
+                    const eloList = sortedDates.map(date => eloPerDate[date]);
+
+                    console.log(labels);
+                    console.log(eloList);
+                    
+                    console.log(eloList);
+                    let prev = 100;
+                    for (let i = 0; i < 1000; i++) {
+                       prev += 5 - Math.random() * 10;
+                       eloList.push({x: i, y: prev});
+                       }
+                       const totalDuration = 20000;
+                       const delayBetweenPoints = totalDuration / eloList.length;
+                       const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+const animation = {
+  x: {
+    type: 'number',
+    easing: 'linear',
+    duration: delayBetweenPoints,
+    from: NaN, // the point is initially skipped
+    delay(ctx) {
+      if (ctx.type !== 'data' || ctx.xStarted) {
+        return 0;
+      }
+      ctx.xStarted = true;
+      return ctx.index * delayBetweenPoints;
+    }
+  },
+  y: {
+    type: 'number',
+    easing: 'linear',
+    duration: delayBetweenPoints,
+    from: previousY,
+    delay(ctx) {
+      if (ctx.type !== 'data' || ctx.yStarted) {
+        return 0;
+      }
+      ctx.yStarted = true;
+      return ctx.index * delayBetweenPoints;
+    }
+  }
+};
+
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Elo per day',
+                                data: eloList,
+                                borderWidth: 3,
+                                borderColor: '#219ebc',
+                                backgroundColor: 'rgba(33, 158, 188, 0.2)',
+                                pointBorderColor: '#219ebc',
+                                pointBackgroundColor: '#000000',
+                                tension: 0.2,
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            animation,
+                            interaction: {
+                            intersect: false
+                            },
+                            scales: {
+                                y: { ticks: { color: '#000000', font: { size: 20 } } },
+                                x: { ticks: {display: true } }
+                            },
+                        },
+                        plugins: [{
+                            id: 'customLegend',
+                            beforeInit: function(chart) {
+                                chart.options.plugins.legend = {
+                                    display: true,
+                                    labels: { color: '#000000', font: { size: 14 } }
+                                };
+                            }
+                        }]
+                    });
+                } catch (error) {
+                    console.error("Erreur: ", error);
+                }
+            }
+            getELOarray(APIurl);
+        }
+    </script>
+</body>
+</html>

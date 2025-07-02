@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valorant API Widget</title>
+</head>
+<body style="background-color:rgb(58, 58, 58); color: white;">
+    <h1><div id="titre">Valorant</div><div id="titre2">API Stats</div></h1>
+    
+    <div class="wave-group">
+        <input required="" type="text" class="input" id="userInput">
+        <span class="bar"></span>
+        <label class="label">
+            <span class="label-char" style="--index: 0">U</span>
+            <span class="label-char" style="--index: 1">s</span>
+            <span class="label-char" style="--index: 2">e</span>
+            <span class="label-char" style="--index: 3">r</span>
+            <span class="label-char" style="--index: 4">n</span>
+            <span class="label-char" style="--index: 5">a</span>
+            <span class="label-char" style="--index: 6">m</span>
+            <span class="label-char" style="--index: 7">e</span>
+            <span class="label-char" style="--index: 8">#</span>
+            <span class="label-char" style="--index: 9">t</span>
+            <span class="label-char" style="--index: 10">a</span>
+            <span class="label-char" style="--index: 11">g</span>
+            <span class="label-char" style="--index: 12">l</span>
+            <span class="label-char" style="--index: 13">i</span>
+            <span class="label-char" style="--index: 14">n</span>
+            <span class="label-char" style="--index: 15">e</span>
+        </label>
+      </div>
+    <button class="button" type="button" onclick="splitInput()">Elo graph</button>
+    <button class="button" type="button" onclick="splitInput2()">Dashboard</button>
+    <button class="button" type="button" onclick="splitInputDay()">Elo graph Day</button>
+    <button onclick="location.href='tutorial.html'" type="button">Tutorial</button>
+    <label id="label" for="region">Select Theme:</label>
+    <select id="theme1">
+        <option value="classic">Classic Blue</option>
+        <option value="red">Red</option>
+        <option value="ap">Asia-Pacific</option>
+        <option value="kr">Korea</option>
+    </select>
+    <div id="userID"><p>Username: <span id="username"></span></p></div>
+    <div id="tagID"><p>Tagline: <span id="tagline"></span></p></div>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @font-face {
+        font-family: "Valorant Font";
+        src: url(ValorantFont.ttf) format("truetype");
+        }
+
+      #titre2{
+        font-family: "Poppins";
+        font-size: 20px;
+        position: absolute;
+        top: 25px;
+        left: 190px;
+      }
+      #titre{
+        font-family: "Valorant Font";
+        font-weight: 100;
+      }
+
+        #Dashboard{
+            position: absolute;
+            top: 200px;
+        }
+
+        #label{
+            font-family: "Poppins";
+        }
+        #userID{
+            position: absolute;
+            top: 160px;
+            font-family: "Poppins";
+        }
+        #tagID{
+            position: absolute;
+            top: 175px;
+            font-family: "Poppins";
+        }
+.wave-group {
+  position: relative;
+  font-family: sans-serif;
+}
+
+.wave-group .input {
+  font-size: 16px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 200px;
+  border: none;
+  border-bottom: 1px solid #515151;
+  background: transparent;
+}
+
+.wave-group .input:focus {
+  outline: none;
+}
+
+.wave-group .label {
+  color: #999;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  display: flex;
+}
+
+.wave-group .label-char {
+  transition: 0.2s ease all;
+  transition-delay: calc(var(--index) * .05s);
+}
+
+.wave-group .input:focus ~ label .label-char,
+.wave-group .input:valid ~ label .label-char {
+  transform: translateY(-20px);
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.wave-group .bar {
+  position: relative;
+  display: block;
+  width: 200px;
+}
+
+.wave-group .bar:before,.wave-group .bar:after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #ffffff;
+  box-shadow: 0px 0px 40px 2px rgb(255, 255, 255);
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.wave-group .bar:before {
+  left: 50%;
+}
+
+.wave-group .bar:after {
+  right: 50%;
+}
+
+.wave-group .input:focus ~ .bar:before,
+.wave-group .input:focus ~ .bar:after {
+  width: 50%;
+}
+
+
+    </style>
+<script>
+    function splitInput() {
+        const input = document.getElementById("userInput").value.trim();
+        const parts = input.split("#");
+
+        if (parts.length === 2) { 
+            const username = parts[0];
+            const tagline = parts[1];
+
+            document.getElementById("username").textContent = username;
+            document.getElementById("tagline").textContent = tagline;
+
+            fetchPuuid(username, tagline);
+        } else {
+            alert("Invalid format ! Use 'Username#tagline'");
+        }
+    }
+
+    function splitInput2() {
+        const input = document.getElementById("userInput").value.trim();
+        const parts = input.split("#");
+
+        if (parts.length === 2) { 
+            const username = parts[0];
+            const tagline = parts[1];
+
+            document.getElementById("username").textContent = username;
+            document.getElementById("tagline").textContent = tagline;
+
+            fetchPuuid2(username, tagline);
+        } else {
+            alert("Invalid format ! Use 'Username#tagline'");
+        }
+    }
+
+    function splitInputDay() {
+        const input = document.getElementById("userInput").value.trim();
+        const parts = input.split("#");
+
+        if (parts.length === 2) { 
+            const username = parts[0];
+            const tagline = parts[1];
+
+            document.getElementById("username").textContent = username;
+            document.getElementById("tagline").textContent = tagline;
+
+            fetchPuuidDay(username, tagline);
+        } else {
+            alert("Invalid format ! Use 'Username#tagline'");
+        }
+    }
+
+    async function fetchPuuid2(username, tagline) {
+        const apiKey = "HDEV-91c8d221-bc22-4f1d-8b11-fdfcc70a31dd";
+        const url = `https://api.henrikdev.xyz/valorant/v1/account/${username}/${tagline}?api_key=${apiKey}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error("Error while fetching data !");
+            }
+
+            const data = await response.json();
+            const puuid = data.data.puuid;
+            function redirect() {
+                window.location.href = `dashboard.html?puuid=${puuid}`;
+                }
+            redirect();
+        } catch (error) {
+            console.error("Error :", error);
+            alert("PUIID not found !");
+        }
+    }
+
+    async function fetchPuuid(username, tagline) {
+        const apiKey = "HDEV-91c8d221-bc22-4f1d-8b11-fdfcc70a31dd";
+        const url = `https://api.henrikdev.xyz/valorant/v1/account/${username}/${tagline}?api_key=${apiKey}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error("Error while fetching data !");
+            }
+
+            const data = await response.json();
+            const puuid = data.data.puuid;
+            const theme = document.getElementById("theme1").value;
+            const github = "https://swayle3.github.io/";
+            function redirect() {
+                window.location.href = `${theme}.html?puuid=${puuid}`;
+                }
+            redirect();
+        } catch (error) {
+            console.error("Error :", error);
+            alert("PUIID not found !");
+        }
+    }
+
+    async function fetchPuuidDay(username, tagline) {
+        const apiKey = "HDEV-91c8d221-bc22-4f1d-8b11-fdfcc70a31dd";
+        const url = `https://api.henrikdev.xyz/valorant/v1/account/${username}/${tagline}?api_key=${apiKey}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error("Error while fetching data !");
+            }
+
+            const data = await response.json();
+            const puuid = data.data.puuid;
+            const theme = document.getElementById("theme1").value;
+            const github = "https://swayle3.github.io/";
+            function redirect() {
+                window.location.href = `${github}classicDay.html?puuid=${puuid}`;
+                }
+            redirect();
+        } catch (error) {
+            console.error("Error :", error);
+            alert("PUIID not found !");
+        }
+    }
+</script>
+</body>
+</html>

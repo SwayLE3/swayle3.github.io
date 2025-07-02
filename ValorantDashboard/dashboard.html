@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div id="WholeScreen" width="480" height="320">
+    <div id="PlayerName">Player Name</div>
+    <div id="PlayerCurrent">Current Elo :</div>
+    <div id="PlayerElo">999</div>
+    <div id="Rank"></div>
+    <div id="image-container"></div>
+    <div id="CharacterIMG"><img src="" width="256" height="128"></img></div>
+    <div id="LastMatch">
+        <div id="LastMatch-HEAD">Last Match</div>
+        <div id="LastMatch-Result">Result :</div>
+        <div id="LastMatch-MapMap">Map
+            <div id="LastMatch-Map">[Map]</div>
+        </div>
+        <div id="LastMatch-KDA">KD
+            <div id="LastMatch-KDADATA">DATA</div>
+        </div>
+        <div id="LastMatch-RR">RR :</div>
+    </div>
+    </div>
+    <script>
+        function getPuuidFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('puuid');
+            console.log(puuid);
+        }
+        getPuuidFromURL();
+        const puuid = getPuuidFromURL();
+        if (!puuid) {
+            alert("PUUID manquant !");
+        } else {
+            const APIurl = `https://api.henrikdev.xyz/valorant/v1/by-puuid/account/${puuid}?api_key=HDEV-91c8d221-bc22-4f1d-8b11-fdfcc70a31dd`;
+            async function getName(APIurl){
+                try {
+                    const response = await fetch(APIurl);
+                    if (!response.ok) throw new Error("Erreur lors de la récupération des données");
+                    const data = await response.json();
+                    const PlayerName = data.data.name;
+                    const PlayerTag = data.data.tag;
+                    document.getElementById('PlayerName').innerHTML = data.data.name + "#" + data.data.tag;
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            async function getCard(APIurl) {
+                try {
+                    const response = await fetch(APIurl);
+                    if (!response.ok) throw new Error("Erreur lors de la récupération des données");
+                    const data = await response.json();
+                    const SmallCard = data.data.card.small;
+                    return SmallCard;
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            const APIurlElo = `https://api.henrikdev.xyz/valorant/v1/by-puuid/lifetime/mmr-history/eu/${puuid}?api_key=HDEV-91c8d221-bc22-4f1d-8b11-fdfcc70a31dd`;
+            async function getELO(APIurlElo) {
+                try {
+                    const response = await fetch(APIurlElo);
+                    if (!response.ok) throw new Error("Erreur lors de la récupération des données");
+                    const data = await response.json();
+                    const elo = data.data[0].elo;
+                    document.getElementById('PlayerElo').innerHTML = data.data[0].elo;
+                    const rrchange = data.data[0].last_mmr_change;
+                    if (rrchange > 0){
+                        document.getElementById('LastMatch-RR').innerHTML = "+" + rrchange + "RR";
+                    }else{
+                        document.getElementById('LastMatch-RR').innerHTML = rrchange + "RR";
+                    }
+                    const matchid = data.data[0].match_id;
+                    const matchIDs = data.data.map(match => match.match_id);
+                    console.log("Match IDs:", matchIDs);
+                    console.log(matchid);
+                    console.log(elo);
+                    return data.data[0].match_id;
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            const APIurlRank = `https://api.henrikdev.xyz/valorant/v1/by-puuid/mmr-history/eu/${puuid}?api_key=HDEV-91c8d221-bc22-4f1d-8b11-fdfcc70a31dd`;
+            async function getRankImage(APIurlRank) {
+                try {
+                    const response = await fetch(APIurlRank);
+                    if (!response.ok) throw new Error("Erreur lors de la récupération des données");
+                    const data = await response.json();
+                    const RankImage = data.data[0].images.small;
+                    return RankImage;
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            
+            async function fetchImage() {
+                const SmallCard = await getCard(APIurl);
+                fetch(SmallCard) // Replace with your API URL
+                .then(res => res.blob())
+                .then(blob => {
+                const imageUrl = URL.createObjectURL(blob);
+                const imageElement = document.createElement("img");
+                imageElement.src = imageUrl;
+                imageElement.onload = () => {
+                    applyGlowEffect(imageElement);
+            };
+            const container = document.getElementById("image-container");
+            container.appendChild(imageElement);
+          })
+          .catch(error => console.error(error));
+         };
+
+         async function fetchImage2() {
+                const RankImage = await getRankImage(APIurlRank);
+                fetch(RankImage) // Replace with your API URL
+                .then(res => res.blob())
+                .then(blob => {
+                const imageUrl2 = URL.createObjectURL(blob);
+                const imageElement2 = document.createElement("img");
+                imageElement2.src = imageUrl2;
+                imageElement2.onload = () => {
+                    applyGlowEffect(imageElement2);
+            };
+            const container2 = document.getElementById("Rank");
+            container2.appendChild(imageElement2);
+          })
+          .catch(error => console.error(error));
+         };
+
+
+        async function bodydamagemain() {
+            const matchid = await getELO(APIurlElo); // On attend que getELO() soit terminé
+            if (!matchid) {
+                console.error("Impossible de récupérer le match ID");
+                return;
+        }
+        const APIurlDamage = `https://api.henrikdev.xyz/valorant/v2/match/${matchid}?api_key=HDEV-91c8d221-bc22-4f1d-8b11-fdfcc70a31dd`;
+        async function bodydamage(APIurlDamage) {
+            try {
+                    const response = await fetch(APIurlDamage);
+                    if (!response.ok) throw new Error("Erreur lors de la récupération des données");
+                    const data = await response.json();
+                    const map = data.data.metadata.map;
+                    document.getElementById("LastMatch-Map").innerHTML = map;
+                    const bluescore = data.data.teams.blue.rounds_won;
+                    const redscore = data.data.teams.red.rounds_won;
+                    winner = "";
+                    if (bluescore > redscore) {
+                        document.getElementById("LastMatch-Result").innerHTML = bluescore + " : " + redscore;
+                        winner = "Blue";
+                    } else {
+                        document.getElementById("LastMatch-Result").innerHTML = redscore + " : " + bluescore;
+                        winner = "Red";
+                    }
+                    console.log(winner);
+                    i = 0;
+                    while (i < 10) {
+                        check = data.data.players.all_players[i].puuid;
+                        if (check == puuid) {
+                            console.log("OK");
+                            const CharImage = data.data.players.all_players[i].assets.agent.killfeed;
+                            document.images[2].src = CharImage;
+                            document.getElementById("CharacterIMG").src = CharImage;
+                            console.log(CharImage);
+                            const TeamPlayer = data.data.players.all_players[i].team;
+                            if (TeamPlayer == "Blue" && winner == "Blue" || TeamPlayer == "Red" && winner == "Red") {
+                                document.getElementById("LastMatch").style.backgroundImage = "linear-gradient(to left, rgba(255, 255, 255, 0), rgba(0, 196, 0, 0.8)";
+                                console.log("gagnant");
+                                document.getElementById("LastMatch-HEAD").innerHTML = "WIN";
+                                } else if (TeamPlayer == "Blue" && winner == "Red" || TeamPlayer == "Red" && winner == "Blue") {
+                                    document.getElementById("LastMatch").style.backgroundImage = "linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255,0,0,0.8))";
+                                    console.log("perdant");
+                                    document.getElementById("LastMatch-HEAD").innerHTML = "LOSE";
+                                }
+                            const Hs = data.data.players.all_players[i].stats.headshots;
+                            const Bs = data.data.players.all_players[i].stats.bodyshots;
+                            const Ls = data.data.players.all_players[i].stats.legshots;
+                            const death = data.data.players.all_players[i].stats.deaths;
+                            const kills = data.data.players.all_players[i].stats.kills;
+                            const assists = data.data.players.all_players[i].stats.assists;
+                            const KD = kills / death;
+                            document.getElementById("LastMatch-KDADATA").innerHTML = KD.toFixed(2);
+                            console.log("headshot " + Hs);
+                            console.log("bodyshot " + Bs);
+                            console.log("Legshot " + Ls);
+                            const total = Hs + Bs + Ls;
+                            const HsP = (Hs / total) * 100;
+                            const BsP = (Bs / total) * 100;
+                            const LsP = (Ls / total) * 100;
+                            console.log(HsP);
+                            console.log(BsP);
+                            console.log(LsP);
+                        }
+                        else {
+                            console.log("NO");
+                        }
+                        i += 1;
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+         };
+         bodydamage(APIurlDamage);
+        }
+        
+        bodydamagemain();
+        getCard(APIurl);
+        getRankImage(APIurlRank);
+        fetchImage();
+        fetchImage2();
+        getELO(APIurlElo);
+        getName(APIurl);
+        }
+        function applyGlowEffect(imgElement) {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+
+                canvas.width = imgElement.width;
+                canvas.height = imgElement.height;
+                ctx.drawImage(imgElement, 0, 0, imgElement.width, imgElement.height);
+
+                const imageData = ctx.getImageData(0, 0, imgElement.width, imgElement.height).data;
+                let r = 0, g = 0, b = 0, count = 0;
+
+                for (let i = 0; i < imageData.length; i += 4) {
+                    r += imageData[i];
+                    g += imageData[i + 1];
+                    b += imageData[i + 2];
+                    count++;
+                }
+
+                r = Math.floor(r / count);
+                g = Math.floor(g / count);
+                b = Math.floor(b / count);
+
+                const dominantColor = `rgb(${r}, ${g}, ${b})`;
+                imgElement.style.filter = `
+                drop-shadow(0px 0px 10px ${dominantColor}) 
+                drop-shadow(0px 0px 20px ${dominantColor}) 
+                `;
+            }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        #CharacterIMG {
+            position: absolute;
+            top: 150px;
+            width: 256px;
+            height: 128px;
+            object-fit: fill;
+        }
+        body{
+            background-color: #181A1B;
+            color: #FFF;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+        #LastMatch {
+            position: absolute;
+            top: 150px;
+            left: 0px;
+            height: 128px;
+            width: 400px;
+            font-weight: bold;
+            font-family: "Poppins", serif;
+        }
+        #LastMatch-KDA{
+            position: relative;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            display: inline-flex;
+            font-family: "Poppins";
+            font-weight: 300;
+            font-size: 20px;
+            top: -20px;
+            color: rgba(255, 255, 255, 0.70);
+        }
+        #LastMatch-KDADATA{
+            color: #FFF;
+            font-weight: 300;
+            font-size: 24px;
+        }
+        #LastMatch-MapMap{
+            position: relative;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            display: inline-flex;
+            font-family: "Poppins";
+            font-weight: 300;
+            font-size: 20px;
+
+            top: -20px;
+            left: 290px;
+            color: rgba(255, 255, 255, 0.70);
+        }
+        #LastMatch-Map{
+            font-family: "Poppins";
+            color: #FFF;
+            font-weight: 300;
+            font-size: 24px;
+        }
+        #LastMatch-Result{
+            position: relative;
+            text-align: center;
+            font-weight: 500;
+            font-family: "Poppins";
+            top: 10px;
+        }
+        #LastMatch-HEAD{
+            position: relative;
+            text-align: center;
+            font-family: "Poppins", regular;
+            font-size: 32px;
+            top: 10px;
+        }
+        #LastMatch-RR{
+            position: relative;
+            text-align:right;
+            font-family: Helvetica;
+            font-style: now;
+            bottom: 135px;
+        }
+        #Rank {
+            position: absolute;
+            top: 25px;
+            left: 350px;
+        }
+        #image-container {
+            position: absolute;
+            top: 10px;
+            left : 10px;
+            border-radius: 10px;
+            transition: filter 0.5s ease-in-out;
+        }
+        #PlayerName {
+            font-size: 15px;
+            font-weight: 200;
+            font-family: "Arial";
+            position: relative;
+            top: 0;
+            left: 160px;
+        }
+        #PlayerCurrent {
+            font-size: 15px;
+            font-weight: 200;
+            font-family: "Arial";
+            position: relative;
+            top: 0;
+            left: 160px;
+        }
+        #PlayerElo {
+            font-size: 15px;
+            font-weight: 500;
+            font-family: "Poppins", serif;
+            font-style: normal;
+            position: relative;
+            top: 0;
+            left: 160px;
+        }
+    </style>
+</body>
+</html>
