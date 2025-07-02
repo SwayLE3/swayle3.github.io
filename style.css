@@ -23,8 +23,12 @@ a:active {
 }
 
 .container {
-  width: 530px;
-  height: 494px;
+  max-width: 530px;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .terminal_toolbar {
@@ -184,5 +188,43 @@ a:active {
 
   100% {
     background: #ffffff;
+  }
+}
+
+/* Ajout pour le responsive */
+@media (max-width: 600px) {
+  .container {
+    width: 95vw;
+    height: auto;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+  .terminal_toolbar {
+    height: 40px;
+    font-size: 14px;
+    padding: 0 4px;
+  }
+  .user {
+    font-size: 12px;
+  }
+  .terminal_body {
+    font-size: 14px;
+    padding: 4px 2px;
+  }
+  .terminal_promtcd span, .terminal_promt span {
+    margin-left: 8px;
+    font-size: 13px;
+  }
+  .terminal_fastfetch_container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .terminal_fastfetch_container img {
+    width: 90px;
+    height: 90px;
+  }
+  .terminal_fastfetch_infos {
+    margin-left: 0;
+    align-items: center;
   }
 } 
