@@ -63,7 +63,7 @@ For questions, issues, or feedback:
 
 ## Privacy Policy
 
-Full privacy policy available at: [github.com(https://github.com/SwayLE3/swayle3.github.io/blob/main/README.md)]
+Full privacy policy available at: [github.com](https://github.com/SwayLE3/swayle3.github.io/blob/main/README.md)
 
 ## Disclaimer
 
