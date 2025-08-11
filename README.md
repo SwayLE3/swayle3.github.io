@@ -58,12 +58,12 @@ A comprehensive Android application for tracking and analyzing your Valorant gam
 ## Support
 
 For questions, issues, or feedback:
-- Email: [swayle3dev@gmail.com]
+- Email: swayle3dev@gmail.com
 - Discord: young_la_flame
 
 ## Privacy Policy
 
-Full privacy policy available at: [[github.com](https://github.com/SwayLE3/swayle3.github.io/blob/main/README.md)]
+Full privacy policy available at: [github.com(https://github.com/SwayLE3/swayle3.github.io/blob/main/README.md)]
 
 ## Disclaimer
 
