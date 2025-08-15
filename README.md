@@ -55,6 +55,9 @@ A comprehensive Android application for tracking and analyzing your Valorant gam
 - **Analytics Data**: Aggregated and anonymized, retained according to Google's policies
 - **User Control**: You can clear all local data
 
+## API
+A huge thanks to Henrik for the incredible API he provide, that's what this app use to get data [Henrik's API](https://github.com/Henrik-3/unofficial-valorant-api)
+
 ## Support
 
 For questions, issues, or feedback:
