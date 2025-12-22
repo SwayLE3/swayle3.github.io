@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="278.025 483.2118 33.659 33.709" width="33.659px" height="33.709px">
+  <g transform="matrix(1, 0, 0, 1, 0, -252.36218261718756)">
+    <path d="M 311.684 752.429 C 311.684 765.384 297.659 773.481 286.44 767.003 C 281.233 763.997 278.025 758.441 278.025 752.429 C 278.025 739.473 292.05 731.376 303.269 737.854 C 308.476 740.86 311.684 746.416 311.684 752.429 Z" id="path3879" style="fill-opacity: 1; stroke: rgb(0, 0, 0); stroke-width: 0.742744; stroke-linecap: round; stroke-linejoin: round; stroke-miterlimit: 4; stroke-opacity: 1; stroke-dasharray: none; fill: rgb(94, 148, 255);"/>
+    <path style="fill:#3a3d40;fill-opacity:1;stroke:#000000;stroke-width:0.99448955;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" id="path3881" d="M 307.424 752.582 C 307.424 762.258 296.949 768.305 288.57 763.467 C 284.681 761.222 282.285 757.072 282.285 752.582 C 282.285 742.906 292.76 736.859 301.139 741.696 C 305.028 743.942 307.424 748.091 307.424 752.582 Z"/>
+    <path style="fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" d="M 286.013 751.912 L 288.497 751.912 L 288.497 759.73 C 292.661 759.73 297.314 759.73 301.099 759.73 L 301.099 751.912 L 303.583 751.912 C 300.847 749.367 297.164 745.892 294.798 743.729 C 291.935 746.36 288.918 749.2 286.013 751.912 L 286.013 751.912 Z M 291.87 752.043 C 293.807 752.043 295.97 752.043 297.726 752.043 L 297.726 757.037 C 295.791 757.037 293.628 757.037 291.87 757.037 L 291.87 752.043 Z" id="path3883"/>
+  </g>
+</svg>
