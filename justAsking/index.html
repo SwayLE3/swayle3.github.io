@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>?</title>
+    <link href="styles.css" rel="stylesheet" />
+</head>
+<body>
+     <img id="myImg" src="jester.gif" alt="Jester">
+<div class="container">
+    <div class="container_terminal"></div>
+    <div class="terminal_toolbar">
+        <div class="butt">
+            <button class="btn btn-color"></button>
+            <button class="btn"></button>
+            <button class="btn"></button>
+        </div>
+        <p class="user">SwayLE3@admin: ~</p>
+    </div>
+    <div class="terminal_body" id="terminalBody">
+        <div class="terminal_promt">
+            <span class="terminal_user">SwayLE3@admin:</span>
+            <span class="terminal_location">~</span>
+            <span class="terminal_bling">$</span>
+            <span class="terminal_bling">Veux-tu être ma valentine ?</span>
+        </div>
+        <div class="terminal_promt">
+            <picture>
+                <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/2728/512.webp" type="image/webp">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2728/512.gif" alt="✨" width="11" height="11">
+            </picture>
+            <span class="terminal_blingGlowing">Type "yes" to claim</span>
+            <picture>
+                <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/2728/512.webp" type="image/webp">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2728/512.gif" alt="✨" width="11" height="11">
+            </picture>
+        </div>
+        <div class="terminal_promt">
+            <picture>
+                <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f613/512.webp" type="image/webp">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f613/512.gif" alt="😓" width="11" height="11">
+            </picture>
+            <span class="terminal_blingRed">Type "no" to reject</span>
+            <picture>
+                <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f613/512.webp" type="image/webp">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f613/512.gif" alt="😓" width="11" height="11">
+            </picture>
+        </div>
+
+        <div class="terminal_promt" id="currentPrompt">
+            <span class="terminal_user">SwayLE3@admin:</span>
+            <span class="terminal_location">~</span>
+            <span class="terminal_bling">$</span>
+            <input type="text" class="terminal_input" id="terminalInput" autocomplete="off" spellcheck="false" />
+            <span class="terminal_cursor"></span>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</div>
+</body>
+</html>
