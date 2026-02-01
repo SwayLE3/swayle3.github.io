@@ -1,0 +1,276 @@
+
+* {
+    box-sizing: border-box;
+}
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+}
+#myImg {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#myImg.show {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  opacity: 1;
+  width: 100%;
+  max-width: 300px;
+}
+
+body{
+    font-family: monospace;
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1a1a1a;
+}
+
+.custom_input {
+  display: flex;
+  align-items: center;
+  position: relative;
+  max-width: 100%;
+}
+
+.input {
+  font-size: 18px;
+  padding: 5px 10px;
+  width: 100%;
+  outline: none;
+  background: #FFFFFF;
+  color: #000000;
+  border: 0px solid #C4D1EB;
+  border-radius: 0px;
+  transition: .3s ease;
+}
+
+.input:focus {
+  background: #FFFFFF;
+  border: 0px solid #FFFFFF;
+  border-radius: 0px;
+}
+
+.input::placeholder {
+  color: #DDDDDD;
+}
+
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal_toolbar {
+  display: flex;
+  height: 35px;
+  align-items: center;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background: linear-gradient(#504b45 0%, #3c3b37 100%);
+  flex-shrink: 0;
+}
+
+.butt {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-right: 5px;
+  font-size: 8px;
+  height: 12px;
+  width: 12px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 100%;
+  background: linear-gradient(#7d7871 0%, #595953 100%);
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.2);
+  box-shadow: 0px 0px 1px 0px #41403A, 0px 1px 1px 0px #474642;
+}
+
+.btn-color {
+  background: #ee411a;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.butt--exit {
+  background: linear-gradient(#f37458 0%, #de4c12 100%);
+}
+
+.user {
+  color: #d5d0ce;
+  margin-left: 6px;
+  font-size: 12px;
+  line-height: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.terminal_body {
+  background: rgba(56, 4, 40, 0.9);
+  min-height: 150px;
+  padding: 8px 10px;
+  margin-top: -1px;
+  font-size: 11px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.terminal_promt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 4px;
+  word-break: break-word;
+}
+
+.terminal_promt span {
+  margin-left: 4px;
+  white-space: nowrap;
+}
+
+.terminal_user {
+  color: #7eda28;
+}
+
+.terminal_location {
+  color: #4878c0;
+}
+
+.terminal_bling {
+  color: #dddddd;
+}
+
+.terminal_blingGlowing{
+  color: #dddddd;
+  animation: glowing 1s infinite;
+}
+.terminal_blingRed{
+  color: #ff0000;
+}
+
+.terminal_cursor {
+  display: block;
+  height: 14px;
+  width: 5px;
+  margin-left: 10px;
+  color: transparent;
+}
+
+.terminal_input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #dddddd;
+  font-size: 11px;
+  font-family: monospace;
+  margin-left: 4px;
+  flex: 1;
+  min-width: 100px;
+  caret-shape: block;
+  caret-color: rgb(255, 255, 255);
+  line-height: normal;
+  padding-top: 0;
+  padding-bottom: 0;
+  vertical-align: baseline;
+}
+
+.terminal_input:focus {
+  outline: none;
+}
+
+.terminal_response {
+  font-family: monospace;
+}
+
+@keyframes glowing {
+  0% {
+    text-shadow: 0px 0px 7px #FFDA35;
+  }
+
+  50% {
+    text-shadow: 0px 0px 7px #ffda3500;
+  }
+
+  100% {
+    text-shadow: 0px 0px 7px #FFDA35;
+  }
+}
+
+/* Media queries - Mobile First Approach */
+/* Tablettes et plus */
+@media (min-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 600px;
+    min-height: 300px;
+  }
+
+  .terminal_toolbar {
+    height: 30px;
+    padding: 0 8px;
+  }
+
+  .user {
+    font-size: 14px;
+  }
+
+  .terminal_body {
+    font-size: 12px;
+    padding: 2px 8px;
+    min-height: 200px;
+  }
+
+  .terminal_input {
+    font-size: 12px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 800px;
+    min-height: 400px;
+  }
+
+  .terminal_body {
+    min-height: 300px;
+  }
+} 
