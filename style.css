@@ -22,103 +22,87 @@ a:active {
   text-decoration: underline;
 }
 
-.container {
-  max-width: 530px;
-  width: 100%;
-  height: auto;
-  min-height: 100vh;
-  margin: 0 auto;
+body {
+  background: #0b0b10;
+}
+
+.repo_wall {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 38px;
+  display: grid;
+  gap: 10px;
+  padding: 10px;
   box-sizing: border-box;
+  z-index: 0;
 }
 
-.terminal_toolbar {
+.repo_card {
   display: flex;
-  height: 30px;
-  align-items: center;
-  padding: 0 8px;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  padding: 18px;
   box-sizing: border-box;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  background: linear-gradient(#504b45 0%, #3c3b37 100%);
-  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: linear-gradient(145deg, #1a1626 0%, #12101b 100%);
+  color: #8d889a;
+  text-decoration: none;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
 }
 
-.butt {
+.repo_card_loading {
+  opacity: 0.5;
+}
+
+.repo_card:hover {
+  border-color: rgba(0, 255, 65, 0.5);
+  color: #c9c5d4;
+  transform: translateY(-2px);
+}
+
+.repo_card_name {
+  color: #b9b4c7;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.repo_card:hover .repo_card_name {
+  color: #00ff41;
+}
+
+.repo_card_desc {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.repo_card_meta {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: 12px;
 }
 
-.btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin-right: 5px;
-  font-size: 8px;
-  height: 12px;
-  width: 12px;
-  box-sizing: border-box;
-  border: none;
-  border-radius: 100%;
-  background: linear-gradient(#7d7871 0%, #595953 100%);
-  text-shadow: 0px 1px 0px rgba(255,255,255,0.2);
-  box-shadow: 0px 0px 1px 0px #41403A, 0px 1px 1px 0px #474642;
-}
-
-.btn-color {
-  background: #ee411a;
-}
-
-.btn:hover {
-  cursor: pointer;
-}
-
-.btn:focus {
-  outline: none;
-}
-
-.butt--exit {
-  background: linear-gradient(#f37458 0%, #de4c12 100%);
-}
-
-.user {
-  color: #d5d0ce;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  font-size: 14px;
-  line-height: 15px;
-}
-
-.terminal_body {
-  background: rgba(56, 4, 40, 0.9);
-  height: calc(100% - 30px);
-  padding-top: 2px;
-  margin-top: -1px;
-  font-size: 12px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.terminal_promt {
-  display: flex;
-}
-
-.terminal_promt span {
-  margin-left: 4px;
-  margin-bottom: 5px;
-}
-
-.terminal_promtcd {
-  display: flex;
-  color: #4878c0;
+.repo_card_dot {
   display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 5px;
+  border-radius: 50%;
 }
 
-.terminal_promtcd span {
-  margin-left: 20px;
-  margin-bottom: 5px;
+.repo_card_date {
+  margin-top: 6px;
+  font-size: 11px;
+  opacity: 0.6;
 }
 
 .terminal_fastfetch_container {
@@ -148,71 +132,51 @@ a:active {
     margin-right: 4px;
   }
 
-.terminal_user {
-  color: #7eda28;
-}
-
-.terminal_location {
-  color: #4878c0;
-}
-
 .terminal_bling {
   color: #dddddd;
 }
 
-.terminal_cursor {
-  display: block;
-  height: 14px;
-  width: 5px;
-  margin-left: 10px;
-  animation: curbl 1200ms linear infinite;
+.last_project {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 8px 14px;
+  background: rgba(0, 10, 0, 0.85);
+  border-top: 1px solid #00ff41;
+  box-shadow: 0 -2px 12px rgba(0, 255, 65, 0.25);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  color: #00ff41;
+  text-shadow: 0 0 6px rgba(0, 255, 65, 0.8);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
 }
 
-@keyframes curbl {
-  
-  0% {
-    background: #ffffff;
-  }
+.last_project_label {
+  opacity: 0.7;
+}
 
-  49% {
-    background: #ffffff;
-  }
+.last_project_cursor {
+  display: inline-block;
+  height: 14px;
+  width: 8px;
+  background: #00ff41;
+  box-shadow: 0 0 8px #00ff41;
+  animation: greenbl 1200ms steps(1) infinite;
+}
 
-  60% {
-    background: transparent;
-  }
-
-  99% {
-    background: transparent;
-  }
-
-  100% {
-    background: #ffffff;
+@keyframes greenbl {
+  50% {
+    opacity: 0;
   }
 }
 
 @media (max-width: 600px) {
-  .container {
-    width: 95vw;
-    height: auto;
-    min-height: 100vh;
-    box-sizing: border-box;
-  }
-  .terminal_toolbar {
-    height: 40px;
-    font-size: 14px;
-    padding: 0 4px;
-  }
-  .user {
+  .last_project {
     font-size: 12px;
-  }
-  .terminal_body {
-    font-size: 14px;
-    padding: 4px 2px;
-  }
-  .terminal_promtcd span, .terminal_promt span {
-    margin-left: 8px;
-    font-size: 13px;
   }
   .terminal_fastfetch_container {
     flex-direction: column;
@@ -226,4 +190,67 @@ a:active {
     margin-left: 0;
     align-items: center;
   }
-} 
+}
+
+.repo_card_profile {
+  justify-content: center;
+  color: #ddd;
+}
+
+.repo_card_profile .terminal_fastfetch_container {
+  margin-top: 0;
+  min-height: 0;
+  gap: 12px;
+}
+
+.repo_card_profile .terminal_fastfetch_container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.repo_card_profile a:link,
+.repo_card_profile a:visited {
+  color: #00ff41;
+}
+
+.repo_card_contact {
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.contact_title {
+  color: #ff0000;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.contact_links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+}
+
+.contact_link,
+.contact_link:link,
+.contact_link:visited {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #8d889a;
+  text-decoration: none;
+  transition: color 0.2s, filter 0.2s;
+}
+
+.contact_link svg {
+  width: 36px;
+  height: 36px;
+  fill: currentColor;
+}
+
+.contact_link:hover {
+  color: #00ff41;
+  filter: drop-shadow(0 0 6px rgba(0, 255, 65, 0.7));
+}
