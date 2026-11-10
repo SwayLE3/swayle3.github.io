@@ -1,193 +1,282 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SwayLE3 · Portfolio</title>
+  <meta name="description" content="Portfolio de SwayLE3, étudiant en informatique en France : tableau de bord OBD-II, éditeur d'art ASCII, C sur Xlib, shaders et configuration Linux.">
+  <meta name="theme-color" content="#121212">
+  <meta property="og:title" content="SwayLE3 · Portfolio">
+  <meta property="og:description" content="Du C sur Xlib au tableau de bord de voiture dans le navigateur.">
+  <meta property="og:image" content="assets/picom-crt.jpg">
+  <link id="favicon" rel="icon" type="image/x-icon" href="assets/normalIcon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <title>SwayLE3</title>
-  <link id="favicon" rel="icon" href="src/normalIcon.ico" />
 </head>
 <body>
-    <div class="repo_wall" id="repoWall"></div>
-<div class="last_project">
-    <span class="last_project_prompt">&gt;</span>
-    <span class="last_project_label">dernier projet :</span>
-    <span class="last_project_text">added a flag to OpenFront</span>
-    <span class="last_project_cursor"></span>
-</div>
-<script>
-    const favicon = document.getElementById('favicon');
-    const normalIcon = 'src/normalIcon.ico';
-    const hiddenIcon = 'src/hiddenIcon.ico';
+  <canvas id="bg3d" class="bg3d" aria-hidden="true"></canvas>
+  <a class="skip" href="#projets">Aller aux projets</a>
 
-    const repos = [
-      { url: 'https://github.com/SwayLE3/ArchConfiture' },
-      { url: 'https://github.com/SwayLE3/instagram-chat-chart' },
-      { url: 'https://github.com/SwayLE3/Concours-controleur-programmeur-2025-' },
-      { profile: true },
-      { url: 'https://github.com/SwayLE3/picom-shader-oldCRT-Bloom' },
-      { url: 'https://github.com/SwayLE3/mallocNote' },
-      { url: 'https://github.com/SwayLE3/TBM-API-interface' },
-      { contact: true }
-    ];
+  <header class="nav-wrap">
+    <nav class="nav-pill" aria-label="Navigation principale">
+      <a class="brand" href="#top" aria-label="SwayLE3, retour en haut">
+        <img src="assets/avatar-nav.png" width="30" height="30" alt="">
+      </a>
+      <div class="nav-links">
+        <a href="#projets" data-spy="projets">Projets</a>
+        <a href="#atelier" data-spy="atelier">Atelier</a>
+        <a href="#stack" data-spy="stack">Stack</a>
+        <a href="#contact" data-spy="contact">Contact</a>
+      </div>
+      <button type="button" class="icon-btn" data-crt-toggle aria-pressed="false" title="Mode CRT">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <span class="sr-only">Mode CRT</span>
+      </button>
+    </nav>
+  </header>
 
-    const wall = document.getElementById('repoWall');
+  <main class="col">
+    <section id="top" class="hero" data-spy-section="top">
+      <h1>SwayLE3</h1>
+      <p class="sub">Étudiant en informatique · France</p>
+      <p class="lede">J'apprends en construisant des choses qui me servent&nbsp;: une appli de notes en C sur Xlib, un éditeur d'art ASCII, un tableau de bord de voiture dans le navigateur.</p>
+      <p class="inline-links">
+        <a href="#projets">Voir les projets&nbsp;→</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://github.com/SwayLE3">GitHub</a>
+      </p>
 
-    const languageColors = {
-      Python: '#3572A5', Java: '#b07219', C: '#555555', 'C++': '#f34b7d', 'C#': '#178600',
-      Kotlin: '#A97BFF', HTML: '#e34c26', CSS: '#563d7c', JavaScript: '#f1e05a',
-      TypeScript: '#3178c6', Shell: '#89e051', GLSL: '#5686a5', Lua: '#000080',
-      Rust: '#dea584', Go: '#00ADD8', Dockerfile: '#384d54', Nix: '#7e7eff'
-    };
+      <p class="label">Me trouver</p>
+      <ul class="icons">
+        <li><a href="https://github.com/SwayLE3" title="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg><span class="sr-only">GitHub</span></a></li>
+        <li><a href="https://linkedin.com/in/jules-durot-1a5923434" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg><span class="sr-only">LinkedIn</span></a></li>
+        <li><button type="button" class="copy" data-copy="young_la_flame" title="Discord : young_la_flame (copier)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg><span class="sr-only">Copier mon pseudo Discord, young_la_flame</span></button></li>
+      </ul>
+    </section>
 
-    function timeAgo(date) {
-      const s = (Date.now() - new Date(date)) / 1000;
-      const units = [['an', 31536000], ['mois', 2592000], ['semaine', 604800], ['jour', 86400], ['heure', 3600], ['minute', 60]];
-      for (const [label, secs] of units) {
-        const n = Math.floor(s / secs);
-        if (n >= 1) return `il y a ${n} ${label}${n > 1 && label !== 'mois' ? 's' : ''}`;
-      }
-      return "à l'instant";
-    }
+    <!-- Projets en cours -->
+    <section id="projets" class="block" data-spy-section="projets">
+      <header class="block-head">
+        <h2 class="label">Projets en cours</h2>
+        <p>Les deux sur lesquels je passe le plus de temps en ce moment.</p>
+      </header>
 
-    function renderCard(card, repo) {
-      card.classList.remove('repo_card_loading');
-      card.innerHTML = `
-        <div class="repo_card_name">${repo.name}</div>
-        <div class="repo_card_desc">${repo.description || ''}</div>
-        <div class="repo_card_meta">
-          <span><i class="repo_card_dot" style="background:${repo.color}"></i>${repo.language}</span>
-          <span>★ ${repo.stars}</span>
-          <span>⑂ ${repo.forks}</span>
+      <article class="item">
+        <h3>ObDashboard</h3>
+        <p>Un tableau de bord de voiture qui tourne dans le navigateur. Un backend Python lit le calculateur en OBD-II et l'interface affiche en temps réel le compte-tours, la vitesse, le rapport engagé et un shift light.</p>
+        <p class="meta">Python · Flask · python-OBD · HTML/CSS/JS <span class="dot">·</span> <span class="status">Développement en cours, sur émulateur ELM327</span></p>
+        <p class="item-links"><a href="https://github.com/SwayLE3/ObDashboard">Dépôt&nbsp;↗</a></p>
+        <figure class="frame">
+<pre class="ascii" role="img" aria-label="Chaîne de données : calculateur, adaptateur ELM327, thread Python, API Flask, interface web.">[ calculateur du véhicule ]
+            |
+            |  OBD-II
+            v
+[ adaptateur ELM327 ]
+            |
+            |  python-OBD, boucle de 100 ms
+            v
+[ thread de lecture ]
+            |
+            |  dernier état, sous verrou
+            v
+[ Flask  GET /api/data ]
+            |
+            |  JSON
+            v
+[ jauges dans le navigateur ]</pre>
+          <figcaption>Le chemin d'une valeur, du moteur à l'écran.</figcaption>
+        </figure>
+      </article>
+
+      <article class="item">
+        <h3>ArtSCII</h3>
+        <p>Un éditeur de texte taillé pour l'art ASCII. On importe un PNG comme calque de guide, on règle son opacité et son échelle, on choisit sa police, puis on dessine par-dessus avec des caractères.</p>
+        <p class="meta">Electron · JavaScript</p>
+        <p class="item-links"><a href="https://github.com/SwayLE3/ArtSCII">Dépôt&nbsp;↗</a></p>
+      </article>
+    </section>
+
+    <!-- Près de la machine -->
+    <section class="block" data-spy-section="projets">
+      <header class="block-head">
+        <h2 class="label">Près de la machine</h2>
+        <p>C sans bibliothèque graphique, shaders et poste de travail réglé à la main.</p>
+      </header>
+
+      <article class="item">
+        <h3>mallocNote</h3>
+        <p>Une appli de prise de notes en C, directement sur Xlib. Pas de toolkit&nbsp;: la fenêtre, le clavier via XKB, le curseur clignotant et le tampon de texte sont gérés à la main, en un seul fichier de 206 lignes.</p>
+        <p class="meta">C · Xlib · XKB</p>
+        <p class="item-links"><a href="https://github.com/SwayLE3/mallocNote">Dépôt&nbsp;↗</a></p>
+        <figure class="frame">
+<pre class="code"><code>int lengthBase = 1024;
+char *textOnScreen = malloc(lengthBase * sizeof(*textOnScreen));
+
+display = XOpenDisplay(NULL);
+if (display == NULL) {
+    fprintf(stderr, "Impossible de se connecter au serv X.\n");
+    return 1;
+}
+
+XSelectInput(display, window, ExposureMask | KeyPressMask);
+XMapWindow(display, window);</code></pre>
+          <figcaption>Extrait de <code>main.c</code></figcaption>
+        </figure>
+      </article>
+
+      <article class="item">
+        <h3>picom-shader-oldCRT-Bloom</h3>
+        <p>Les shaders oldCRT et Bloom de @ikz87 réunis en un seul pour le compositeur Picom. Mon terminal se prend pour un vieux moniteur cathodique.</p>
+        <p class="meta">GLSL · Picom</p>
+        <p class="item-links">
+          <a href="https://github.com/SwayLE3/picom-shader-oldCRT-Bloom">Dépôt&nbsp;↗</a>
+          <button type="button" class="link-btn" data-crt-toggle aria-pressed="false">Essayer l'effet CRT sur ce site</button>
+        </p>
+        <figure class="frame frame-img">
+          <img src="assets/picom-crt.jpg" width="1366" height="735" loading="lazy" alt="Terminal kitty rendu avec une courbure d'écran, des lignes de balayage et un halo lumineux.">
+          <figcaption>Le shader appliqué à kitty.</figcaption>
+        </figure>
+      </article>
+
+      <article class="item">
+        <h3>ArchConfiture</h3>
+        <p>Ma configuration Arch&nbsp;: kitty, oh-my-zsh, powerline, le visualiseur audio Cava et un script qui affiche un Pokémon à chaque terminal.</p>
+        <p class="meta">Shell · Arch Linux</p>
+        <p class="item-links"><a href="https://github.com/SwayLE3/ArchConfiture">Dépôt&nbsp;↗</a></p>
+        <figure class="frame frame-img">
+          <img src="assets/arch-rice.jpg" width="1366" height="768" loading="lazy" alt="Bureau Linux en mosaïque avec un terminal, un visualiseur audio et une pluie de caractères.">
+          <figcaption>Terminal, Cava et pluie de caractères.</figcaption>
+        </figure>
+      </article>
+    </section>
+
+    <!-- Brancher des API -->
+    <section class="block" data-spy-section="projets">
+      <header class="block-head">
+        <h2 class="label">Brancher des API</h2>
+        <p>Récupérer des données vivantes et en faire quelque chose de lisible.</p>
+      </header>
+
+      <article class="item">
+        <h3>Valorant Dashboard</h3>
+        <p>Un site de statistiques Valorant en graphiques, alimenté par l'API non officielle de Henrik.</p>
+        <p class="meta">HTML · JS · Chart.js</p>
+        <p class="item-links">
+          <a href="https://swayle3.github.io/ValorantDashboard/">Voir en ligne&nbsp;↗</a>
+          <a href="https://github.com/SwayLE3/swayle3.github.io">Dépôt&nbsp;↗</a>
+        </p>
+      </article>
+      <article class="item">
+        <h3>Wire Analytics</h3>
+        <p>Une appli Android pour suivre ses parties Valorant&nbsp;: historique des matchs, progression de rang et widgets d'écran d'accueil.</p>
+        <p class="meta">Android · Kotlin/Java · Firebase</p>
+        <p class="item-links"><a href="https://github.com/SwayLE3/Wire-Analytics">Fichiers Play Console&nbsp;↗</a></p>
+      </article>
+      <article class="item">
+        <h3>TBM-API-interface</h3>
+        <p>Une page commentée pour exploiter le flux temps réel du réseau de transport TBM et trouver le prochain passage à un arrêt.</p>
+        <p class="meta">HTML · JS · SIRI Lite</p>
+        <p class="item-links"><a href="https://github.com/SwayLE3/TBM-API-interface">Dépôt&nbsp;↗</a></p>
+      </article>
+    </section>
+
+    <!-- Atelier -->
+    <section id="atelier" class="block" data-spy-section="atelier">
+      <header class="block-head">
+        <h2 class="label">Atelier</h2>
+        <p>Petits outils, révisions et bidouilles.</p>
+      </header>
+
+      <ul class="rows">
+        <li class="item row">
+          <a class="row-title" href="https://github.com/SwayLE3/instagram-chat-chart">instagram-chat-chart</a>
+          <p>Compte les messages par personne à partir de l'export JSON d'Instagram et trace le résultat.</p>
+          <p class="meta">Python · Matplotlib <span class="dot">·</span> 2025</p>
+        </li>
+        <li class="item row">
+          <a class="row-title" href="https://github.com/SwayLE3/Concours-controleur-programmeur-2025-">Concours programmeur 2025</a>
+          <p>Ma correction des annales du concours contrôleur programmeur des finances publiques.</p>
+          <p class="meta">SQL <span class="dot">·</span> 2026</p>
+        </li>
+        <li class="item row">
+          <a class="row-title" href="https://github.com/SwayLE3/OpenFrontIO">OpenFrontIO</a>
+          <p>Fork d'un jeu de stratégie en temps réel dans le navigateur, où j'ai ajouté le drapeau de l'Occitanie.</p>
+          <p class="meta">TypeScript <span class="dot">·</span> 2026</p>
+        </li>
+        <li class="item row">
+          <a class="row-title" href="https://github.com/SwayLE3/Youtubium">Youtubium</a>
+          <p>Téléchargeur de vidéos YouTube qui automatise un convertisseur web avec SeleniumBase.</p>
+          <p class="meta">Python · Selenium <span class="dot">·</span> 2024</p>
+        </li>
+        <li class="item row">
+          <a class="row-title" href="https://github.com/SwayLE3/Caisse">Caisse</a>
+          <p>Calcule la monnaie à rendre pour une caisse.</p>
+          <p class="meta">Python <span class="dot">·</span> 2025</p>
+        </li>
+        <li class="item row">
+          <a class="row-title" href="https://github.com/SwayLE3/Cs2ConfigFile">Cs2ConfigFile</a>
+          <p>Ma configuration personnelle pour Counter-Strike.</p>
+          <p class="meta">Config <span class="dot">·</span> 2026</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Stack -->
+    <section id="stack" class="block" data-spy-section="stack">
+      <header class="block-head">
+        <h2 class="label">Stack</h2>
+        <p>Langages, outils et logiciels que j'utilise.</p>
+      </header>
+
+      <dl class="stack">
+        <div class="item">
+          <dt>Langages</dt>
+          <dd><span>C</span> <span>Python</span> <span>JavaScript</span> <span>TypeScript</span> <span>HTML/CSS</span> <span>Bash</span> <span>SQL</span> <span>GLSL</span> <span>Kotlin</span> <span>Java</span> <span>C#</span></dd>
         </div>
-        <div class="repo_card_date">${repo.updated}</div>`;
-    }
+        <div class="item">
+          <dt>Outils</dt>
+          <dd><span>Electron</span> <span>Chart.js</span> <span>Matplotlib</span> <span>Selenium</span> <span>Git</span> <span>Firebase</span> <span>SQLite</span> <span>Pandas</span> <span>Qt</span> <span>Puppeteer</span> <span>Arduino</span></dd>
+        </div>
+        <div class="item">
+          <dt>Création</dt>
+          <dd><span>Blender</span> <span>Photoshop</span> <span>After Effects</span> <span>Inkscape</span></dd>
+        </div>
+      </dl>
+    </section>
 
-    async function loadRepo(card, url) {
-      const path = new URL(url).pathname.replace(/^\/|\/$/g, '');
-      const name = path.split('/')[1] || path;
-      const key = `repo:${path}`;
-      let cached = null;
-      try { cached = JSON.parse(localStorage.getItem(key)); } catch (err) {}
-      const show = (data) => {
-        const language = data.language || '—';
-        renderCard(card, {
-          name: data.name,
-          description: data.description,
-          language,
-          color: languageColors[language] || '#8d889a',
-          stars: data.stargazers_count,
-          forks: data.forks_count,
-          updated: timeAgo(data.pushed_at)
-        });
-      };
-      if (cached && Date.now() - cached.time < 3600000) return show(cached.data);
-      try {
-        const res = await fetch(`https://api.github.com/repos/${path}`);
-        if (!res.ok) throw new Error(res.status);
-        const data = await res.json();
-        try { localStorage.setItem(key, JSON.stringify({ time: Date.now(), data })); } catch (err) {}
-        show(data);
-      } catch (err) {
-        if (cached) return show(cached.data);
-        renderCard(card, { name, description: '', language: '—', color: '#8d889a', stars: '—', forks: '—', updated: '' });
+    <!-- Contact -->
+    <section id="contact" class="block contact" data-spy-section="contact">
+      <header class="block-head">
+        <h2 class="label">Contact</h2>
+        <p>Un conseil, une correction ou juste une idée&nbsp;: je suis preneur.</p>
+      </header>
+      <ul class="rows socials">
+        <li class="item row"><a class="row-title" href="https://github.com/SwayLE3">GitHub&nbsp;↗</a><p class="meta">SwayLE3</p></li>
+        <li class="item row"><a class="row-title" href="https://linkedin.com/in/jules-durot-1a5923434">LinkedIn&nbsp;↗</a><p class="meta">jules-durot</p></li>
+        <li class="item row"><button type="button" class="row-title copy" data-copy="young_la_flame">Discord</button><p class="meta">young_la_flame <span class="copy-hint">· cliquer pour copier</span></p></li>
+      </ul>
+    </section>
+
+    <footer class="foot">
+      <p>HTML, CSS et JavaScript, sans framework. Tête en Three.js.</p>
+      <a href="#top">Haut de page&nbsp;↑</a>
+    </footer>
+  </main>
+
+  <div class="crt-overlay" aria-hidden="true"></div>
+  <p id="toast" class="toast" role="status" aria-live="polite"></p>
+
+  <script src="main.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
       }
     }
-
-    const profileHTML = `
-<div class="terminal_fastfetch_container">
-  <div>
-    <img src="src/avatar.png" alt="avatar" width="161" height="161">
-  </div>
-  <div class="terminal_fastfetch_infos">
-    <div>
-      <span class="terminal_fastfetch">User :</span>
-      <span class="terminal_bling">SwayLE3@admin</span>
-    </div>
-    <div>
-      <span class="terminal_fastfetch">Age :</span>
-      <span class="terminal_bling">19</span>
-    </div>
-    <div>
-      <span class="terminal_fastfetch">Location :</span>
-      <span class="terminal_bling">South France</span>
-    </div>
-    <div>
-      <span class="terminal_fastfetch">Hobbies :</span>
-      <span class="terminal_bling">Programming, 3d conception, Motorcycle mechanics</span>
-    </div>
-    <div>
-    </div>
-  </div>
-</div>`;
-
-    const contactHTML = `
-    <div class="contact_title">contact :</div>
-    <div class="contact_links">
-      <a class="contact_link" href="https://www.linkedin.com/in/jules-durot-1a5923434" target="_blank" title="LinkedIn">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        <span>LinkedIn</span>
-      </a>
-      <a class="contact_link" href="https://www.discordapp.com/users/898447783223250984" target="_blank" title="Discord">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
-        <span>Discord</span>
-      </a>
-      <a class="contact_link" href="https://github.com/SwayLE3" target="_blank" title="GitHub">
-        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-        <span>GitHub</span>
-      </a>
-    </div>`;
-
-    function addCard(tag, className, html) {
-      const el = document.createElement(tag);
-      el.className = className;
-      el.innerHTML = html;
-      wall.appendChild(el);
-    }
-
-    repos.forEach((repo) => {
-      if (repo.profile) return addCard('div', 'repo_card repo_card_profile', profileHTML);
-      if (repo.contact) return addCard('div', 'repo_card repo_card_contact', contactHTML);
-      const card = document.createElement('a');
-      card.className = 'repo_card repo_card_loading';
-      card.href = repo.url;
-      card.target = '_blank';
-      card.innerHTML = '<div class="repo_card_name">&nbsp;</div><div class="repo_card_desc"></div>';
-      wall.appendChild(card);
-      loadRepo(card, repo.url);
-    });
-
-    function layoutWall() {
-      const cards = wall.children;
-      const n = cards.length;
-      if (!n) return;
-      const ratio = wall.clientWidth / wall.clientHeight;
-      const cols = Math.min(n, Math.max(1, Math.round(Math.sqrt(n * ratio))));
-      const rows = Math.ceil(n / cols);
-      const lastCount = n - cols * (rows - 1);
-      wall.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-      wall.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
-      const base = Math.floor(cols / lastCount);
-      const extra = cols % lastCount;
-      for (let i = 0; i < n; i++) {
-        let span = 1;
-        const j = i - cols * (rows - 1);
-        if (j >= 0) span = base + (j < extra ? 1 : 0);
-        cards[i].style.gridColumn = `span ${span}`;
-      }
-    }
-
-    layoutWall();
-    addEventListener('resize', layoutWall);
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        favicon.href = hiddenIcon;
-      } else {
-        favicon.href = normalIcon;
-      }
-    });
-</script>
+  </script>
+  <script type="module" src="bg3d.js"></script>
 </body>
 </html>
-
-
